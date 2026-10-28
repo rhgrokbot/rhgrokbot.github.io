@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Retirement House Analytics – authorization received</title><link rel="icon" href="../icon.png"><style>
+:root{--g:#389E83}
+*{box-sizing:border-box}
+body{margin:0;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;color:#1f2a27;background:#f7faf8;line-height:1.65}
+header{background:var(--g);color:#fff;padding:18px 24px}
+header a{color:#fff;text-decoration:none;font-weight:bold}
+header nav{display:flex;align-items:center;gap:18px;max-width:780px;margin:0 auto;flex-wrap:wrap}
+header nav .sp{flex:1}
+main{max-width:780px;margin:0 auto;padding:32px 24px 48px;background:#fff;min-height:60vh}
+h1,h2{color:var(--g);line-height:1.25}
+a{color:var(--g)}
+code{background:#eef5f2;padding:1px 5px;border-radius:4px;font-size:.92em}
+footer{text-align:center;color:#6b7a75;font-size:.9em;padding:24px}
+.hero{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.hero img{width:120px;height:120px;border-radius:24px;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.box{background:#eef5f2;border-left:4px solid var(--g);padding:14px 18px;border-radius:6px;word-break:break-all}
+button{background:var(--g);color:#fff;border:0;padding:8px 16px;border-radius:6px;font:inherit;cursor:pointer}
+</style></head>
+<body><header><nav><a href="../index.html">Retirement House Analytics</a><span class="sp"></span><a href="../terms.html">Terms</a><a href="../privacy.html">Privacy</a></nav></header>
+<main>
+<h1>Authorization received</h1>
+<div id="out"><p>Loading…</p></div>
+<script>
+(function(){
+  var p=new URLSearchParams(window.location.search);
+  var code=p.get('code'), state=p.get('state'), err=p.get('error'), errd=p.get('error_description');
+  var out=document.getElementById('out');
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+  if(code){
+    out.innerHTML='<p>Thanks! TikTok sent back an authorization code. Copy it below and pass it to the Retirement House team.</p>'+
+      '<h2>Code</h2><div class="box" id="code">'+esc(code)+'</div><p><button id="cp">Copy code</button> <span id="msg"></span></p>'+
+      '<h2>State</h2><div class="box">'+(state?esc(state):'<em>(none)</em>')+'</div>';
+    document.getElementById('cp').onclick=function(){
+      var m=document.getElementById('msg');
+      if(navigator.clipboard){navigator.clipboard.writeText(code).then(function(){m.textContent='Copied!';},function(){m.textContent='Select the code above and copy it manually.';});}
+      else{m.textContent='Select the code above and copy it manually.';}
+    };
+  } else {
+    out.innerHTML='<p>No authorization code was found in this link. If you just tried to connect TikTok, please start the sign-in again from the Retirement House Analytics app.</p>'+
+      (err?'<p>TikTok returned an error: <strong>'+esc(err)+'</strong>'+(errd?' – '+esc(errd):'')+'</p>':'')+
+      (state?'<p>State: <code>'+esc(state)+'</code></p>':'');
+  }
+})();
+</script>
+</main>
+<footer>&copy; 2026 Retirement House &middot; Flight House (Flighthouse Media) &middot; <a href="mailto:theretirementhouse@gmail.com">theretirementhouse@gmail.com</a></footer>
+</body></html>
